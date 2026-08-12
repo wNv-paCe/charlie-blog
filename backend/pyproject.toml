@@ -1,0 +1,32 @@
+[project]
+name = "charlie-blog"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "wNv-paCe", email = "pace.ap@fastmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "aiosmtplib>=5.1.2",
+    "alembic>=1.19.1",
+    "boto3>=1.43.68",
+    "fastapi[standard]>=0.141.1",
+    "greenlet>=3.5.5",
+    "pillow>=12.3.0",
+    "psycopg[binary]>=3.3.4",
+    "pwdlib[argon2]>=0.3.0",
+    "pydantic-settings>=2.15.0",
+    "pyjwt>=2.13.0",
+    "sqlalchemy>=2.0.51",
+]
+
+[project.scripts]
+charlie-blog = "charlie_blog:main"
+
+[tool.fastapi]
+entrypoint = "charlie_blog.main:app"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
