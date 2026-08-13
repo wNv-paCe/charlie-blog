@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
-    <footer className="border-t">
-      <div className="mx-auto max-w-6xl px-4 py-6 text-center text-sm">
+    <footer className="p-4">
+      <div className="mx-auto max-w-6xl text-center text-sm">
         © 2026 Charlie
       </div>
     </footer>
