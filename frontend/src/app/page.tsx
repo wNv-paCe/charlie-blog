@@ -8,10 +8,12 @@ export default function Home() {
     <div className="flex min-h-screen flex-col">
       <Header />
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-16 py-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-[1fr_280px] items-start">
-          <PostList />
-          <Sidebar />
+      <main className="mx-16 flex-1 border-b border-gray-500 py-8">
+        <div className="mx-auto w-full max-w-6xl">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-[1fr_280px] items-start">
+            <PostList />
+            <Sidebar />
+          </div>
         </div>
       </main>
 
