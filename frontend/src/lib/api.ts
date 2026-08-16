@@ -22,16 +22,28 @@ export type PaginatedPostsResponse = {
   has_more: boolean;
 };
 
+const API_URL = process.env.API_URL;
+
 export async function getPosts(
   skip: number,
   limit: number,
 ): Promise<PaginatedPostsResponse> {
   const response = await fetch(
-    `http://localhost:8000/api/posts?skip=${skip}&limit=${limit}`,
+    `${API_URL}/api/posts?skip=${skip}&limit=${limit}`,
   );
 
   if (!response.ok) {
     throw new Error("Failed to fetch posts");
+  }
+
+  return response.json();
+}
+
+export async function getPost(id: number) {
+  const response = await fetch(`${API_URL}/api/posts/${id}`);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch post");
   }
 
   return response.json();
