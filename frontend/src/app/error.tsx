@@ -14,9 +14,11 @@ export default function ErrorPage({
 
   return (
     <div className="flex flex-col items-center justify-center py-20">
-      <h2 className="text-2xl font-semibold">Something went wrong</h2>
+      <h2 className="text-2xl text-foreground font-semibold">
+        Something went wrong
+      </h2>
 
-      <p className="mt-2 text-gray-500">{error.message}</p>
+      <p className="mt-2 text-muted">{error.message}</p>
 
       <button
         onClick={() => retry()}

@@ -4,7 +4,7 @@ import type { Post } from "@/lib/api";
 
 export default function PostCard({ post }: { post: Post }) {
   return (
-    <article className="rounded-lg border p-6">
+    <article className="rounded-lg border border-border bg-card p-6">
       <div className="flex gap-4">
         {/* Avatar */}
         <div className="shrink-0">
@@ -23,26 +23,28 @@ export default function PostCard({ post }: { post: Post }) {
           <div className="flex items-center gap-2 text-sm">
             <Link
               href={`/users/${post.author.id}/posts`}
-              className="font-medium hover:underline"
+              className="font-semibold text-lg text-blue-700 hover:text-foreground"
             >
               {post.author.username}
             </Link>
-            <span className="text-gray-400">·</span>
-            <span className="text-gray-500">{post.date_posted}</span>
+            <span className="text-muted">·</span>
+            <span className="text-muted">
+              {new Date(post.date_posted).toLocaleDateString("en-CA")}
+            </span>
           </div>
 
           {/* Driver */}
-          <div className="my-3 border-t" />
+          <div className="mb-3 border-t border-border" />
 
           {/* Title */}
           <Link href={`/posts/${post.id}`}>
-            <h2 className="text-xl font-semibold hover:underline">
+            <h2 className="text-xl font-semibold text-card-foreground hover:text-primary">
               {post.title}
             </h2>
           </Link>
 
           {/* Content */}
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-card-foreground">
             {post.content.slice(0, 150)}
             {post.content.length > 150 && "..."}
           </p>
