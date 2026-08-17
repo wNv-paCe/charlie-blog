@@ -45,24 +45,24 @@ export default function Header() {
   const CurrentIcon = themeOptions[theme].icon;
 
   return (
-    <header className="bg-sky-900">
+    <header className="bg-primary">
       <div className="mx-16">
-        <div className="flex mx-auto max-w-6xl items-center py-4">
+        <div className="flex mx-auto max-w-6xl items-center py-2">
           {/* Website name */}
-          <Link href="/" className="text-xl font-bold text-gray-200">
+          <Link href="/" className="text-xl font-bold text-primary-foreground">
             Charlie Blog
           </Link>
 
           {/* Desktop navigation */}
-          <nav className="text-gray-300 font-semibold ml-8 hidden items-center gap-6 md:flex">
+          <nav className="text-primary-foreground font-semibold ml-8 hidden items-center gap-6 md:flex">
             <Link href="/">Home</Link>
             <Link href={"/about"}>About</Link>
           </nav>
 
           {/* Desktop user actions */}
-          <div className="text-gray-300 ml-auto hidden items-center gap-4 md:flex">
-            <a>Login</a>
-            <a>Register</a>
+          <div className="text-primary-foreground ml-auto hidden items-center gap-4 md:flex">
+            <a className="border px-3 py-2 rounded-md">Login</a>
+            <a className="px-3 py-2 bg-white text-black rounded-md">Register</a>
 
             {/* Desktop Theme */}
             <div className="relative">
@@ -101,7 +101,7 @@ export default function Header() {
           {/* Mobile menu button */}
           <button
             type="button"
-            className="ml-auto cursor-pointer rounded-md border-gray-400 border text-gray-300 px-3 py-2 md:hidden"
+            className="ml-auto cursor-pointer rounded-md border-border border-2 text-primary-foreground px-3 py-2 md:hidden"
             onClick={() => setIsOpen((prev) => !prev)}
             aria-label="Toggle menu"
           >
@@ -111,7 +111,7 @@ export default function Header() {
 
         {/* Mobile menu */}
         {isOpen && (
-          <div className="border-t border-gray-400 px-4 py-4 text-gray-300 md:hidden">
+          <div className="border-t border-border px-4 py-4 text-primary-foreground md:hidden">
             <nav className="flex flex-col gap-4">
               <Link href="/" onClick={() => setIsOpen(false)}>
                 Home
@@ -120,8 +120,10 @@ export default function Header() {
                 About
               </Link>
               <div className="flex justify-start gap-2">
-                <a>Login</a>
-                <a>Register</a>
+                <a className="border px-3 py-2 rounded-md">Login</a>
+                <a className="px-3 py-2 bg-white text-black rounded-md">
+                  Register
+                </a>
               </div>
 
               {/* Mobile Theme */}

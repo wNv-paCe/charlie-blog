@@ -28,7 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="h-full">
         <div className="flex min-h-screen flex-col">
           <Header />
-          <main className="mx-16 flex-1 border-b border-gray-500 py-8">
+          <main className="mx-16 flex-1 border-b border-border py-8">
             {children}
           </main>
           <Footer />
