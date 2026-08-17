@@ -42,8 +42,32 @@ export async function getPosts(
 export async function getPost(id: number) {
   const response = await fetch(`${API_URL}/api/posts/${id}`);
 
+  if (response.status === 404) {
+    return null;
+  }
+
   if (!response.ok) {
     throw new Error("Failed to fetch post");
+  }
+
+  return response.json();
+}
+
+export async function getUserPosts(
+  id: number,
+  skip: number,
+  limit: number,
+): Promise<PaginatedPostsResponse | null> {
+  const response = await fetch(
+    `${API_URL}/api/users/${id}/posts?skip=${skip}&limit=${limit}`,
+  );
+
+  if (response.status === 404) {
+    return null;
+  }
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch user posts");
   }
 
   return response.json();

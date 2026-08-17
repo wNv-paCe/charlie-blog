@@ -1,13 +1,15 @@
-import { getPosts } from "@/lib/api";
 import PostCard from "./PostCard";
+import { Post } from "@/lib/api";
 
-export default async function PostList() {
-  const data = await getPosts(0, 10);
+type PostListProps = {
+  posts: Post[];
+};
 
+export default async function PostList({ posts }: PostListProps) {
   return (
     <section>
       <div className="space-y-6">
-        {data.posts.map((post) => (
+        {posts.map((post) => (
           <PostCard key={post.id} post={post} />
         ))}
       </div>

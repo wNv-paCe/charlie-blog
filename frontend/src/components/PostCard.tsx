@@ -23,7 +23,7 @@ export default function PostCard({ post }: { post: Post }) {
           <div className="flex items-center gap-2 text-sm">
             <Link
               href={`/users/${post.author.id}/posts`}
-              className="font-semibold text-lg text-blue-700 hover:text-foreground"
+              className="font-semibold text-lg text-blue-500 hover:text-foreground"
             >
               {post.author.username}
             </Link>
