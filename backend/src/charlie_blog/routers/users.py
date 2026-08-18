@@ -8,6 +8,7 @@ from fastapi import (
     Depends,
     HTTPException,
     Query,
+    Response,
     UploadFile,
     status,
 )
@@ -42,7 +43,6 @@ from charlie_blog.schemas import (
     PaginatedPostsResponse,
     PostResponse,
     ResetPasswordRequest,
-    Token,
     UserCreate,
     UserPrivate,
     UserPublic,
@@ -92,8 +92,9 @@ async def create_user(user: UserCreate, db: Annotated[AsyncSession, Depends(get_
     return new_user
 
 
-@router.post("/token", response_model=Token)
+@router.post("/token")
 async def login_for_access_token(
+    response: Response,
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     db: Annotated[AsyncSession, Depends(get_db)],
 ):
@@ -121,7 +122,14 @@ async def login_for_access_token(
         data={"sub": str(user.id)},
         expires_delta=access_token_expires,
     )
-    return Token(access_token=access_token, token_type="bearer")
+    response.set_cookie(
+        key="access_token",
+        value=access_token,
+        httponly=True,
+        secure=False,
+        samesite="lax",
+    )
+    return {"message": "Login successful"}
 
 
 @router.get("/me", response_model=UserPrivate)
