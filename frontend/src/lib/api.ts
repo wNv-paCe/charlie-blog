@@ -5,6 +5,14 @@ export type UserPublic = {
   image_path: string | null;
 };
 
+export type UserPrivate = {
+  id: number;
+  username: string;
+  image_file: string | null;
+  image_path: string | null;
+  email: string;
+};
+
 export type Post = {
   id: number;
   user_id: number;
@@ -22,7 +30,7 @@ export type PaginatedPostsResponse = {
   has_more: boolean;
 };
 
-const API_URL = process.env.API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getPosts(
   skip: number,
@@ -48,6 +56,20 @@ export async function getPost(id: number) {
 
   if (!response.ok) {
     throw new Error("Failed to fetch post");
+  }
+
+  return response.json();
+}
+
+export async function getUser(id: number): Promise<UserPublic | null> {
+  const response = await fetch(`${API_URL}/api/users/${id}`);
+
+  if (response.status === 404) {
+    return null;
+  }
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch user");
   }
 
   return response.json();
