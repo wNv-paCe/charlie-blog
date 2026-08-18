@@ -26,6 +26,8 @@
   --card: #2d2d2d;
   --card-foreground: #e0e0e0;
 
+  --surface: #252525;
+
   --muted: #a1a1aa;
 
   --border: #404040;
@@ -41,6 +43,8 @@
     --card: #2d2d2d;
     --card-foreground: #e0e0e0;
 
+    --surface: #252525;
+
     --muted: #a1a1aa;
 
     --border: #404040;
@@ -55,6 +59,8 @@
 
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+
+  --color-surface: var(--surface);
 
   --color-muted: var(--muted);
 

@@ -5,6 +5,14 @@ export type UserPublic = {
   image_path: string | null;
 };
 
+export type UserPrivate = {
+  id: number;
+  username: string;
+  image_file: string | null;
+  image_path: string | null;
+  email: string;
+};
+
 export type Post = {
   id: number;
   user_id: number;
@@ -22,7 +30,7 @@ export type PaginatedPostsResponse = {
   has_more: boolean;
 };
 
-const API_URL = process.env.API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getPosts(
   skip: number,
