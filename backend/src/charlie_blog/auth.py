@@ -4,8 +4,7 @@ from datetime import UTC, datetime, timedelta
 from typing import Annotated
 
 import jwt
-from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi import Cookie, Depends, HTTPException, status
 from pwdlib import PasswordHash
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -15,7 +14,6 @@ from charlie_blog.config import settings
 from charlie_blog.database import get_db
 
 password_hash = PasswordHash.recommended()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/users/token")
 
 
 def hash_password(password: str) -> str:
@@ -67,8 +65,19 @@ def verify_access_token(token: str) -> str | None:
         return payload.get("sub")
 
 
+async def get_access_token(
+    access_token: Annotated[str | None, Cookie()] = None,
+) -> str:
+    if access_token is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired token",
+        )
+    return access_token
+
+
 async def get_current_user(
-    token: Annotated[str, Depends(oauth2_scheme)],
+    token: Annotated[str, Depends(get_access_token)],
     db: Annotated[AsyncSession, Depends(get_db)],
 ) -> models.User:
     user_id = verify_access_token(token)
@@ -76,7 +85,6 @@ async def get_current_user(
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid or expired token",
-            headers={"WWW-Authenticate": "Bearer"},
         )
 
     try:
@@ -85,7 +93,6 @@ async def get_current_user(
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid or expired token",
-            headers={"WWW-Authenticate": "Bearer"},
         )
 
     result = await db.execute(
@@ -96,7 +103,6 @@ async def get_current_user(
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="User not found",
-            headers={"WWW-Authenticate": "Bearer"},
         )
     return user
 
