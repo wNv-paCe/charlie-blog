@@ -22,8 +22,8 @@ export function LoginForm() {
 
         try {
           await login(email, password);
-
           router.push("/");
+          router.refresh();
         } catch (error) {
           if (error instanceof Error) {
             setError(error.message);

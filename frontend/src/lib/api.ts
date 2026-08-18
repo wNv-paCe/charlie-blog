@@ -61,6 +61,20 @@ export async function getPost(id: number) {
   return response.json();
 }
 
+export async function getUser(id: number): Promise<UserPublic | null> {
+  const response = await fetch(`${API_URL}/api/users/${id}`);
+
+  if (response.status === 404) {
+    return null;
+  }
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch user");
+  }
+
+  return response.json();
+}
+
 export async function getUserPosts(
   id: number,
   skip: number,
