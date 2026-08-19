@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import SuccessModal from "@/components/SuccessModal";
+import InfoModel from "@/components/InfoModal";
 import { createPost, updatePost } from "@/lib/api";
 
 type PostFormProps = {
@@ -131,7 +131,8 @@ export function PostForm({
       </form>
 
       {successMessage && (
-        <SuccessModal
+        <InfoModel
+          title="Success"
           message={successMessage}
           onConfirm={handleSuccessConfirm}
         />

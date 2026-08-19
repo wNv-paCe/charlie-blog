@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { register } from "@/lib/auth";
 import { useRouter } from "next/navigation";
-import SuccessModal from "@/components/SuccessModal";
+import InfoModal from "@/components/InfoModal";
 
 export function RegisterForm() {
   const [username, setUsername] = useState("");
@@ -135,7 +135,8 @@ export function RegisterForm() {
       </form>
 
       {successMessage && (
-        <SuccessModal
+        <InfoModal
+          title="Success"
           message={successMessage}
           onConfirm={() => {
             setSuccessMessage(null);

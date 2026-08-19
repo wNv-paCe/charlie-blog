@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { UserPrivate } from "./api";
+import { redirect } from "next/navigation";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -27,4 +28,14 @@ export async function getCurrentUser(): Promise<UserPrivate | null> {
   }
 
   return response.json();
+}
+
+export async function requireCurrentUser(): Promise<UserPrivate> {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    redirect("/login?reason=session-expired");
+  }
+
+  return user;
 }

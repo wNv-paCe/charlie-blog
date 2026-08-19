@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { login } from "@/lib/auth";
 import { useRouter } from "next/navigation";
-import SuccessModal from "@/components/SuccessModal";
+import InfoModal from "@/components/InfoModal";
 
 export function LoginForm() {
   const [email, setEmail] = useState("");
@@ -91,7 +91,8 @@ export function LoginForm() {
       </form>
 
       {successMessage && (
-        <SuccessModal
+        <InfoModal
+          title="Success"
           message={successMessage}
           onConfirm={() => {
             setSuccessMessage(null);
