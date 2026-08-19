@@ -38,6 +38,9 @@ export async function getPosts(
 ): Promise<PaginatedPostsResponse> {
   const response = await fetch(
     `${API_URL}/api/posts?skip=${skip}&limit=${limit}`,
+    {
+      cache: "no-store",
+    },
   );
 
   if (!response.ok) {
@@ -48,7 +51,9 @@ export async function getPosts(
 }
 
 export async function getPost(id: number) {
-  const response = await fetch(`${API_URL}/api/posts/${id}`);
+  const response = await fetch(`${API_URL}/api/posts/${id}`, {
+    cache: "no-store",
+  });
 
   if (response.status === 404) {
     return null;
@@ -120,8 +125,33 @@ export async function updatePost(
   return response.json();
 }
 
+export async function deletePost(postId: number): Promise<void> {
+  const response = await fetch(`${API_URL}/api/posts/${postId}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+
+  if (response.status === 401) {
+    throw new Error("Your session has expired. Please log in again");
+  }
+
+  if (response.status === 403) {
+    throw new Error("You are not authorized to delete this post");
+  }
+
+  if (response.status === 404) {
+    throw new Error("Post not found");
+  }
+
+  if (!response.ok) {
+    throw new Error("Failed to delete post");
+  }
+}
+
 export async function getUser(id: number): Promise<UserPublic | null> {
-  const response = await fetch(`${API_URL}/api/users/${id}`);
+  const response = await fetch(`${API_URL}/api/users/${id}`, {
+    cache: "no-cache",
+  });
 
   if (response.status === 404) {
     return null;
@@ -141,6 +171,7 @@ export async function getUserPosts(
 ): Promise<PaginatedPostsResponse | null> {
   const response = await fetch(
     `${API_URL}/api/users/${id}/posts?skip=${skip}&limit=${limit}`,
+    { cache: "no-cache" },
   );
 
   if (response.status === 404) {

@@ -74,7 +74,7 @@ export default function ThemeSelector({ mobile = false }: ThemeSelectorProps) {
                 key={option}
                 type="button"
                 onClick={() => changeTheme(option)}
-                className="flex w-full cursor-pointer items-center gap-2 rounded px-3 py-2 text-left hover:bg-gray-400"
+                className="flex w-full cursor-pointer items-center gap-2 rounded px-3 py-2 text-left hover:bg-muted hover:text-black"
               >
                 <Icon size={16} />
                 {themeOptions[option].label}

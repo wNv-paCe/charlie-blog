@@ -15,7 +15,7 @@ export default function InfoModal({
 }: InfoModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="w-full max-w-sm rounded-xl border border-border bg-card p-6 shadow-xl">
+      <div className="w-full max-w-1/2 rounded-xl border border-border bg-card p-6 shadow-xl">
         <div className="flex flex-col items-center text-center">
           <CheckCircle className="mb-4 text-green-500" size={48} />
 

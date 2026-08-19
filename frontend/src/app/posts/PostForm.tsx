@@ -62,7 +62,7 @@ export function PostForm({
     setSuccessMessage(null);
 
     if (isEdit) {
-      router.back();
+      router.push(`/posts/${postId}`);
     } else {
       router.push(`/posts/${createdPostId}`);
     }

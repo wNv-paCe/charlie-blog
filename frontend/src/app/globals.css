@@ -16,6 +16,8 @@
   --primary: #527c9f;
   --primary-foreground: #ffffff;
 
+  --danger: #B91C1C;
+
   --link: #428bca;
 }
 
@@ -68,6 +70,8 @@
 
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+
+  --color-danger: var(--danger);
 
   --color-link: var(--link);
   
