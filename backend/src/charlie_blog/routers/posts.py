@@ -136,8 +136,8 @@ async def update_post_partial(
         )
 
     update_data = post_data.model_dump(exclude_unset=True)
-    for filed, value in update_data.items():
-        setattr(post, filed, value)
+    for field, value in update_data.items():
+        setattr(post, field, value)
 
     await db.commit()
     await db.refresh(post, attribute_names=["author"])

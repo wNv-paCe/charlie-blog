@@ -16,35 +16,37 @@ export function RegisterForm() {
 
   const router = useRouter();
 
+  async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setError("");
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      await register(username, email, password);
+
+      setSuccessMessage("Registration successful!");
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("Something went wrong");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <>
       <form
-        onSubmit={async (event) => {
-          event.preventDefault();
-
-          setError("");
-
-          if (password !== confirmPassword) {
-            setError("Passwords do not match");
-            return;
-          }
-
-          setIsLoading(true);
-
-          try {
-            await register(username, email, password);
-
-            setSuccessMessage("Registration successful!");
-          } catch (error) {
-            if (error instanceof Error) {
-              setError(error.message);
-            } else {
-              setError("Something went wrong");
-            }
-          } finally {
-            setIsLoading(false);
-          }
-        }}
+        onSubmit={handleSubmit}
         className="space-y-5 bg-card rounded-xl border border-border p-6"
       >
         <h2 className="font-bold text-3xl">Register</h2>
@@ -126,7 +128,7 @@ export function RegisterForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="cursor-pointer rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground transition-opacity hover:opacity-90"
+          className="cursor-pointer rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isLoading ? "Registering..." : "Register"}
         </button>
