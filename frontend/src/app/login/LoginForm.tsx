@@ -3,9 +3,13 @@
 import { useState } from "react";
 import { login } from "@/lib/auth";
 import { useRouter } from "next/navigation";
-import SuccessModal from "@/components/SuccessModal";
+import InfoModal from "@/components/InfoModal";
 
-export function LoginForm() {
+type LoginFormProps = {
+  next?: string;
+};
+
+export function LoginForm({ next }: LoginFormProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -14,29 +18,31 @@ export function LoginForm() {
 
   const router = useRouter();
 
+  async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setError("");
+    setIsLoading(true);
+
+    try {
+      await login(email, password);
+
+      setSuccessMessage("Login successful!");
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("Something went wrong");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <>
       <form
-        onSubmit={async (event) => {
-          event.preventDefault();
-
-          setError("");
-          setIsLoading(true);
-
-          try {
-            await login(email, password);
-
-            setSuccessMessage("Login successful!");
-          } catch (error) {
-            if (error instanceof Error) {
-              setError(error.message);
-            } else {
-              setError("Something went wrong");
-            }
-          } finally {
-            setIsLoading(false);
-          }
-        }}
+        onSubmit={handleSubmit}
         className="space-y-5 bg-card rounded-xl border border-border p-6"
       >
         <h2 className="font-bold text-3xl">Login</h2>
@@ -82,18 +88,19 @@ export function LoginForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="cursor-pointer rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground transition-opacity hover:opacity-90"
+          className="cursor-pointer rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isLoading ? "Logging in..." : "Login"}
         </button>
       </form>
 
       {successMessage && (
-        <SuccessModal
+        <InfoModal
+          title="Success"
           message={successMessage}
           onConfirm={() => {
             setSuccessMessage(null);
-            router.push("/");
+            router.push(next || "/");
             router.refresh();
           }}
         />

@@ -1,8 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Post } from "@/lib/api";
+import PostActions from "./PostActions";
 
-export default function PostDetail({ post }: { post: Post }) {
+type PostDetailProps = {
+  post: Post;
+  isOwner: boolean;
+};
+
+export default function PostDetail({ post, isOwner }: PostDetailProps) {
   return (
     <article className="rounded-lg border border-border bg-card p-6">
       <div className="flex gap-4">
@@ -36,10 +42,14 @@ export default function PostDetail({ post }: { post: Post }) {
           {/* Driver */}
           <div className="mb-3 border-t border-border" />
 
-          {/* Title */}
-          <h2 className="text-xl font-semibold text-card-foreground">
-            {post.title}
-          </h2>
+          {/* Title + Actions */}
+          <div className="flex items-start justify-between gap-4 mb-4">
+            <h2 className="min-w-0 text-xl font-semibold text-card-foreground">
+              {post.title}
+            </h2>
+
+            {isOwner && <PostActions postId={post.id} userId={post.user_id} />}
+          </div>
 
           {/* Content */}
           <p className="mt-2 text-card-foreground">{post.content}</p>
