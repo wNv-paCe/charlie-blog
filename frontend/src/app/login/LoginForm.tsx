@@ -5,7 +5,11 @@ import { login } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import InfoModal from "@/components/InfoModal";
 
-export function LoginForm() {
+type LoginFormProps = {
+  next?: string;
+};
+
+export function LoginForm({ next }: LoginFormProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -96,7 +100,7 @@ export function LoginForm() {
           message={successMessage}
           onConfirm={() => {
             setSuccessMessage(null);
-            router.push("/");
+            router.push(next || "/");
             router.refresh();
           }}
         />

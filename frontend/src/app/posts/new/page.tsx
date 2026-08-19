@@ -3,7 +3,7 @@ import { PostForm } from "../PostForm";
 import { requireCurrentUser } from "@/lib/auth-server";
 
 export default async function NewPostPage() {
-  await requireCurrentUser();
+  await requireCurrentUser("/posts/new");
 
   return (
     <div className="mx-auto w-full max-w-6xl">

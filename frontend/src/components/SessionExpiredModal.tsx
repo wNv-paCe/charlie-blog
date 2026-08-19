@@ -5,10 +5,12 @@ import InfoModal from "./InfoModal";
 
 type SessionExpiredModalProps = {
   show: boolean;
+  next?: string;
 };
 
 export default function SessionExpiredModal({
   show,
+  next,
 }: SessionExpiredModalProps) {
   const router = useRouter();
 
@@ -16,11 +18,18 @@ export default function SessionExpiredModal({
     return null;
   }
 
+  function handleConfirm() {
+    const loginUrl = next
+      ? `/login?next=${encodeURIComponent(next)}`
+      : "/login";
+    router.replace(loginUrl);
+  }
+
   return (
     <InfoModal
       title="Session Expired"
       message="Your session has expired. Please log in again."
-      onConfirm={() => router.replace("/login")}
+      onConfirm={handleConfirm}
     />
   );
 }

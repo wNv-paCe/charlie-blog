@@ -30,11 +30,15 @@ export async function getCurrentUser(): Promise<UserPrivate | null> {
   return response.json();
 }
 
-export async function requireCurrentUser(): Promise<UserPrivate> {
+export async function requireCurrentUser(next?: string): Promise<UserPrivate> {
   const user = await getCurrentUser();
 
   if (!user) {
-    redirect("/login?reason=session-expired");
+    const loginUrl = next
+      ? `/login?reason=session-expired&next=${encodeURIComponent(next)}`
+      : "/login?reason=session-expired";
+
+    redirect(loginUrl);
   }
 
   return user;
