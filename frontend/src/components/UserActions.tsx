@@ -39,7 +39,7 @@ export default function UserActions({ user, onNavigate }: UserActionsProps) {
       </Link>
 
       <Link
-        href={`/users/${user.id}`}
+        href="/settings/account"
         onClick={onNavigate}
         className="rounded-md bg-white text-black px-3 py-2"
       >
