@@ -32,6 +32,7 @@ export type PaginatedPostsResponse = {
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+// Post API
 export async function getPosts(
   skip: number,
   limit: number,
@@ -148,6 +149,7 @@ export async function deletePost(postId: number): Promise<void> {
   }
 }
 
+// User API
 export async function getUser(id: number): Promise<UserPublic | null> {
   const response = await fetch(`${API_URL}/api/users/${id}`, {
     cache: "no-cache",
@@ -180,6 +182,27 @@ export async function getUserPosts(
 
   if (!response.ok) {
     throw new Error("Failed to fetch user posts");
+  }
+
+  return response.json();
+}
+
+export async function updateUser(
+  userId: number,
+  data: { username: string; email: string },
+): Promise<UserPrivate> {
+  const response = await fetch(`${API_URL}/api/users/${userId}`, {
+    method: "PATCH",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+    cache: "no-cache",
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+
+    throw new Error(errorData.detail || "Failed to update user");
   }
 
   return response.json();

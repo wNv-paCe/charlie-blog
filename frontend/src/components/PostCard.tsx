@@ -4,7 +4,7 @@ import type { Post } from "@/lib/api";
 
 export default function PostCard({ post }: { post: Post }) {
   return (
-    <article className="rounded-lg border border-border bg-card p-6">
+    <article className="rounded-lg border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-muted/10 hover:shadow-md">
       <div className="flex gap-4">
         {/* Avatar */}
         <div className="shrink-0">

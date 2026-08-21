@@ -340,7 +340,7 @@ async def update_user(
     ):
         result = await db.execute(
             select(models.User).where(
-                func.lower(models.User.username) == user.username.lower(),
+                func.lower(models.User.username) == user_update.username.lower(),
             ),
         )
         existing_user = result.scalars().first()
@@ -356,7 +356,7 @@ async def update_user(
     ):
         result = await db.execute(
             select(models.User).where(
-                func.lower(models.User.email) == user.email.lower(),
+                func.lower(models.User.email) == user_update.email.lower(),
             ),
         )
         existing_email = result.scalars().first()
