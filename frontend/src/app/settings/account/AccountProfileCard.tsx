@@ -19,7 +19,15 @@ export default function AccountProfileCard({ user }: AccountProfileCardProps) {
 
   const router = useRouter();
 
+  const isChanged =
+    username !== user.username ||
+    email.toLowerCase() !== user.email.toLowerCase();
+
   async function handleUpdateProfile() {
+    if (!isChanged) {
+      return;
+    }
+
     setError("");
     setIsLoading(true);
 
@@ -105,10 +113,14 @@ export default function AccountProfileCard({ user }: AccountProfileCardProps) {
           <button
             type="button"
             onClick={handleUpdateProfile}
-            disabled={isLoading}
+            disabled={isLoading || !isChanged}
             className="cursor-pointer rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {isLoading ? "Updating..." : "Update Profile"}
+            {isLoading
+              ? "Updating..."
+              : isChanged
+                ? "Update Profile"
+                : "No Changes"}
           </button>
         </div>
       </section>
