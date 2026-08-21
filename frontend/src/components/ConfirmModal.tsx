@@ -1,5 +1,8 @@
 "use client";
 
+import { AlertTriangle } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
 type ConfirmModalProps = {
   title: string;
   message: string;
@@ -7,6 +10,7 @@ type ConfirmModalProps = {
   onCancel: () => void;
   confirmText?: string;
   cancelText?: string;
+  icon?: LucideIcon;
 };
 
 export default function ConfirmModal({
@@ -16,11 +20,14 @@ export default function ConfirmModal({
   onCancel,
   confirmText = "Confirm",
   cancelText = "Cancel",
+  icon: Icon = AlertTriangle,
 }: ConfirmModalProps) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
       <div className="w-full max-w-1/2 rounded-xl border border-border bg-card p-6 shadow-xl">
-        <div className="text-center">
+        <div className="flex flex-col items-center text-center">
+          <Icon className="mb-4 text-danger" size={48} />
+
           <h2 className="mb-2 text-xl text-danger font-bold">{title}</h2>
 
           <p className="mb-6 text-card-foreground">{message}</p>
