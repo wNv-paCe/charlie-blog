@@ -37,7 +37,7 @@ export default function HeaderClient({ user }: HeaderClientProps) {
           {/* Mobile menu button */}
           <button
             type="button"
-            className="ml-auto cursor-pointer rounded-md border-border border-2 text-primary-foreground px-3 py-2 md:hidden"
+            className="ml-auto cursor-pointer rounded-md border border-primary-foreground/30 text-primary-foreground px-3 py-2 md:hidden"
             onClick={() => setIsOpen((prev) => !prev)}
             aria-label="Toggle menu"
           >

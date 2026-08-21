@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import InfoModal from "./InfoModal";
+import { AlertTriangle } from "lucide-react";
 
 type SessionExpiredModalProps = {
   show: boolean;
@@ -29,6 +30,7 @@ export default function SessionExpiredModal({
     <InfoModal
       title="Session Expired"
       message="Your session has expired. Please log in again."
+      icon={AlertTriangle}
       onConfirm={handleConfirm}
     />
   );

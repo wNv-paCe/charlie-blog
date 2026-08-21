@@ -13,7 +13,7 @@ export default function UserActions({ user, onNavigate }: UserActionsProps) {
         <Link
           href="/login"
           onClick={onNavigate}
-          className="rounded-md border px-3 py-2"
+          className="rounded-md border border-white px-3 py-2 hover:bg-white hover:text-black"
         >
           Login
         </Link>
@@ -21,7 +21,7 @@ export default function UserActions({ user, onNavigate }: UserActionsProps) {
         <Link
           href="/register"
           onClick={onNavigate}
-          className="rounded-md bg-white px-3 py-2 text-black"
+          className="rounded-md bg-white px-3 py-2 text-black hover:bg-white/85"
         >
           Register
         </Link>
