@@ -1,6 +1,7 @@
 import Sidebar from "@/components/Sidebar";
 import AccountProfileCard from "./AccountProfileCard";
 import { requireCurrentUser } from "@/lib/auth-server";
+import ProfilePictureUpload from "./ProfilePictureUpload";
 
 export default async function AccountSettingsPage() {
   const user = await requireCurrentUser("/settings/account");
@@ -14,6 +15,7 @@ export default async function AccountSettingsPage() {
           </h1>
 
           <AccountProfileCard user={user} />
+          <ProfilePictureUpload user={user} />
         </main>
         <Sidebar />
       </div>
