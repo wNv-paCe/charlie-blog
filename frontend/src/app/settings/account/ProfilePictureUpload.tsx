@@ -119,14 +119,14 @@ export default function ProfilePictureUpload({
                 type="button"
                 onClick={handleUpload}
                 disabled={!selectedFile || isUploading}
-                className="cursor-pointer bg-primary px-5 font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                className="cursor-pointer rounded-md bg-primary px-5 font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isUploading ? "Uploading..." : "Upload"}
               </button>
             </div>
 
             <p className="mt-2 text-xs text-muted">
-              Maximum file size: 5MB. Supported formats: JPEG, PNG, GIF, WebP.
+              Maximum file size: 5MB. Supported formats: JPEG, PNG, GIF, WebP
             </p>
 
             {error && <p className="mt-2 text-sm text-danger">{error}</p>}
