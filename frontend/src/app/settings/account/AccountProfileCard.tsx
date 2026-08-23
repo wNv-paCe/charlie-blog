@@ -62,6 +62,7 @@ export default function AccountProfileCard({ user }: AccountProfileCardProps) {
               alt={user.username}
               width={80}
               height={80}
+              priority
               className="rounded-full"
             />
           </div>

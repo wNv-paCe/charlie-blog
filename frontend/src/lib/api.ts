@@ -207,3 +207,25 @@ export async function updateUser(
 
   return response.json();
 }
+
+export async function uploadProfilePicture(
+  userId: number,
+  file: File,
+): Promise<UserPrivate> {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetch(`${API_URL}/api/users/${userId}/picture`, {
+    method: "PATCH",
+    credentials: "include",
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+
+    throw new Error(errorData.detail || "Failed to upload profile picture");
+  }
+
+  return response.json();
+}
