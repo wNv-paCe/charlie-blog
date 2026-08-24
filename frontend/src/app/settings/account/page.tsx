@@ -3,6 +3,7 @@ import Sidebar from "@/components/Sidebar";
 import AccountProfileCard from "./AccountProfileCard";
 import ProfilePictureUpload from "./ProfilePictureUpload";
 import ChangePasswordForm from "./ChangePasswordForm";
+import LogoutSection from "./LogoutSection";
 
 export default async function AccountSettingsPage() {
   const user = await requireCurrentUser("/settings/account");
@@ -18,6 +19,7 @@ export default async function AccountSettingsPage() {
           <AccountProfileCard user={user} />
           <ProfilePictureUpload user={user} />
           <ChangePasswordForm />
+          <LogoutSection />
         </main>
         <Sidebar />
       </div>
