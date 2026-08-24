@@ -131,6 +131,15 @@ async def login_for_access_token(
     return {"message": "Login successful"}
 
 
+@router.post("/logout")
+async def logout(response: Response):
+    response.delete_cookie(
+        key="access_token",
+    )
+
+    return {"message": "Logged out successfully"}
+
+
 @router.get("/me", response_model=UserPrivate)
 async def get_current_user(current_user: CurrentUser):
     return current_user
