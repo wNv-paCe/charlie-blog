@@ -1,6 +1,7 @@
 import { LoginResponse } from "../types/auth";
 import { UserPrivate } from "../types/user";
 import { API_URL } from "./client";
+import { getApiError } from "./error";
 
 export async function login(
   email: string,
@@ -19,13 +20,7 @@ export async function login(
   });
 
   if (!response.ok) {
-    const data = await response.json();
-    if (Array.isArray(data.detail)) {
-      throw new Error(
-        data.detail.map((error: { msg: string }) => error.msg).join(", "),
-      );
-    }
-    throw new Error(data.detail || "Invalid email or password");
+    throw await getApiError(response);
   }
 
   return response.json();
@@ -49,14 +44,7 @@ export async function register(
   });
 
   if (!response.ok) {
-    const data = await response.json();
-    if (Array.isArray(data.detail)) {
-      throw new Error(
-        data.detail.map((error: { msg: string }) => error.msg).join(", "),
-      );
-    }
-
-    throw new Error(data.detail || "Failed to create account");
+    throw await getApiError(response);
   }
 
   return response.json();
@@ -69,7 +57,7 @@ export async function logout(): Promise<{ message: string }> {
   });
 
   if (!response.ok) {
-    throw new Error("Failed to logout");
+    throw await getApiError(response);
   }
 
   return response.json();

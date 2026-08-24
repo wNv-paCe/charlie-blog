@@ -1,6 +1,7 @@
 import { PaginatedPostsResponse } from "../types/post";
 import { UserPrivate, UserPublic } from "../types/user";
 import { API_URL } from "./client";
+import { getApiError } from "./error";
 
 export async function changePassword(data: {
   current_password: string;
@@ -16,14 +17,7 @@ export async function changePassword(data: {
   });
 
   if (!response.ok) {
-    const data = await response.json();
-    if (Array.isArray(data.detail)) {
-      throw new Error(
-        data.detail.map((error: { msg: string }) => error.msg).join(", "),
-      );
-    }
-
-    throw new Error(data.detail || "Failed to change password");
+    throw await getApiError(response);
   }
 
   return response.json();
@@ -39,7 +33,7 @@ export async function getUser(id: number): Promise<UserPublic | null> {
   }
 
   if (!response.ok) {
-    throw new Error("Failed to fetch user");
+    throw await getApiError(response);
   }
 
   return response.json();
@@ -60,7 +54,7 @@ export async function getUserPosts(
   }
 
   if (!response.ok) {
-    throw new Error("Failed to fetch user posts");
+    throw await getApiError(response);
   }
 
   return response.json();
@@ -79,9 +73,7 @@ export async function updateUser(
   });
 
   if (!response.ok) {
-    const errorData = await response.json();
-
-    throw new Error(errorData.detail || "Failed to update user");
+    throw await getApiError(response);
   }
 
   return response.json();
@@ -101,10 +93,19 @@ export async function uploadProfilePicture(
   });
 
   if (!response.ok) {
-    const errorData = await response.json();
-
-    throw new Error(errorData.detail || "Failed to upload profile picture");
+    throw await getApiError(response);
   }
 
   return response.json();
+}
+
+export async function deleteUser(userId: number): Promise<void> {
+  const response = await fetch(`${API_URL}/api/users/${userId}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw await getApiError(response);
+  }
 }

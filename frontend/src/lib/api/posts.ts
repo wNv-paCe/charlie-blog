@@ -1,5 +1,6 @@
 import { PaginatedPostsResponse, Post } from "../types/post";
 import { API_URL } from "./client";
+import { getApiError } from "./error";
 
 export async function getPosts(
   skip: number,
@@ -13,7 +14,7 @@ export async function getPosts(
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch posts");
+    throw await getApiError(response);
   }
 
   return response.json();
@@ -29,7 +30,7 @@ export async function getPost(id: number) {
   }
 
   if (!response.ok) {
-    throw new Error("Failed to fetch post");
+    throw await getApiError(response);
   }
 
   return response.json();
@@ -56,7 +57,7 @@ export async function createPost(
   }
 
   if (!response.ok) {
-    throw new Error("Invalid to create post");
+    throw await getApiError(response);
   }
 
   return response.json();
@@ -88,7 +89,7 @@ export async function updatePost(
   }
 
   if (!response.ok) {
-    throw new Error("Failed to update post");
+    throw await getApiError(response);
   }
 
   return response.json();
@@ -113,6 +114,6 @@ export async function deletePost(postId: number): Promise<void> {
   }
 
   if (!response.ok) {
-    throw new Error("Failed to delete post");
+    throw await getApiError(response);
   }
 }
