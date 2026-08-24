@@ -61,6 +61,7 @@ export default function ChangePasswordForm() {
             <input
               id="current-password"
               type="password"
+              minLength={8}
               value={currentPassword}
               onChange={(event) => setCurrentPassword(event.target.value)}
               className="w-full rounded-md border border-border bg-surface px-3 py-2 text-card-foreground outline-none focus:border-primary"
@@ -75,6 +76,7 @@ export default function ChangePasswordForm() {
             <input
               id="new-password"
               type="password"
+              minLength={8}
               value={newPassword}
               onChange={(event) => setNewPassword(event.target.value)}
               className="w-full rounded-md border border-border bg-surface px-3 py-2 text-card-foreground outline-none focus:border-primary"
@@ -92,6 +94,7 @@ export default function ChangePasswordForm() {
             <input
               id="confirm-password"
               type="password"
+              minLength={8}
               value={confirmPassword}
               onChange={(event) => setConfirmPassword(event.target.value)}
               className="w-full rounded-md border border-border bg-surface px-3 py-2 text-card-foreground outline-none focus:border-primary"

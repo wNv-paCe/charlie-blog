@@ -4,6 +4,7 @@ import { useState } from "react";
 import { login } from "@/lib/api/auth";
 import { useRouter } from "next/navigation";
 import InfoModal from "@/components/InfoModal";
+import Link from "next/link";
 
 type LoginFormProps = {
   next?: string;
@@ -92,6 +93,22 @@ export function LoginForm({ next }: LoginFormProps) {
         >
           {isLoading ? "Logging in..." : "Login"}
         </button>
+
+        <p className="mt-4 text-sm text-muted">
+          <Link
+            href="/forgot-password"
+            className="text-primary hover:underline"
+          >
+            Forgot your password?
+          </Link>
+        </p>
+
+        <p className="text-sm text-muted">
+          Don&apos;t have an account?{" "}
+          <Link href="/register" className="text-primary hover:underline">
+            Register here
+          </Link>
+        </p>
       </form>
 
       {successMessage && (

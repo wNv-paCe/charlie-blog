@@ -4,6 +4,7 @@ import { useState } from "react";
 import { register } from "@/lib/api/auth";
 import { useRouter } from "next/navigation";
 import InfoModal from "@/components/InfoModal";
+import Link from "next/link";
 
 export function RegisterForm() {
   const [username, setUsername] = useState("");
@@ -96,6 +97,7 @@ export function RegisterForm() {
             id="password"
             name="password"
             type="password"
+            minLength={8}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             required
@@ -114,6 +116,7 @@ export function RegisterForm() {
             id="confirm-password"
             name="confirm-password"
             type="password"
+            minLength={8}
             value={confirmPassword}
             onChange={(event) => setConfirmPassword(event.target.value)}
             required
@@ -132,6 +135,13 @@ export function RegisterForm() {
         >
           {isLoading ? "Registering..." : "Register"}
         </button>
+
+        <p className="text-sm text-muted">
+          Already have an account?{" "}
+          <Link href="/login" className="text-primary hover:underline">
+            Login
+          </Link>
+        </p>
       </form>
 
       {successMessage && (
