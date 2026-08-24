@@ -97,6 +97,7 @@ export function RegisterForm() {
             id="password"
             name="password"
             type="password"
+            minLength={8}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             required
@@ -115,6 +116,7 @@ export function RegisterForm() {
             id="confirm-password"
             name="confirm-password"
             type="password"
+            minLength={8}
             value={confirmPassword}
             onChange={(event) => setConfirmPassword(event.target.value)}
             required
