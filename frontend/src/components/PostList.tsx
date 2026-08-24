@@ -1,5 +1,5 @@
 import PostCard from "./PostCard";
-import { Post } from "@/lib/api";
+import { Post } from "@/lib/types/post";
 
 type PostListProps = {
   title?: string;

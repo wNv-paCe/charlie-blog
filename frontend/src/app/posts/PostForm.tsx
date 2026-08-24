@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import InfoModel from "@/components/InfoModal";
-import { createPost, updatePost } from "@/lib/api";
+import { createPost, updatePost } from "@/lib/api/posts";
 
 type PostFormProps = {
   mode: "create" | "edit";

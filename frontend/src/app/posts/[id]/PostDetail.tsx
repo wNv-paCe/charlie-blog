@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { Post } from "@/lib/api";
+import { Post } from "@/lib/types/post";
 import PostActions from "./PostActions";
 
 type PostDetailProps = {

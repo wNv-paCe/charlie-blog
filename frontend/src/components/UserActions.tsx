@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { UserPrivate } from "@/lib/api";
+import { UserPrivate } from "@/lib/types/user";
 
 type UserActionsProps = {
   user: UserPrivate | null;

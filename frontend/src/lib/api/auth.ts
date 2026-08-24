@@ -1,10 +1,6 @@
-import { UserPrivate } from "./api";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-type LoginResponse = {
-  message: string;
-};
+import { LoginResponse } from "../types/auth";
+import { UserPrivate } from "../types/user";
+import { API_URL } from "./client";
 
 export async function login(
   email: string,

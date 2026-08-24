@@ -1,7 +1,8 @@
 "use client";
 
 import InfoModal from "@/components/InfoModal";
-import { uploadProfilePicture, UserPrivate } from "@/lib/api";
+import { uploadProfilePicture } from "@/lib/api/users";
+import { UserPrivate } from "@/lib/types/user";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

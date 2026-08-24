@@ -1,7 +1,7 @@
 import Sidebar from "@/components/Sidebar";
 import { PostForm } from "../../PostForm";
 import { requireCurrentUser } from "@/lib/auth-server";
-import { getPost } from "@/lib/api";
+import { getPost } from "@/lib/api/posts";
 import { notFound } from "next/navigation";
 
 export default async function EditPostPage({

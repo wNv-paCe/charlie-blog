@@ -1,7 +1,8 @@
 "use client";
 
 import InfoModal from "@/components/InfoModal";
-import { updateUser, type UserPrivate } from "@/lib/api";
+import { updateUser } from "@/lib/api/users";
+import { UserPrivate } from "@/lib/types/user";
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
