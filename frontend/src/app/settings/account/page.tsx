@@ -4,6 +4,7 @@ import AccountProfileCard from "./AccountProfileCard";
 import ProfilePictureUpload from "./ProfilePictureUpload";
 import ChangePasswordForm from "./ChangePasswordForm";
 import LogoutSection from "./LogoutSection";
+import DeleteAccountSection from "./DeleteAccountSection";
 
 export default async function AccountSettingsPage() {
   const user = await requireCurrentUser("/settings/account");
@@ -20,6 +21,7 @@ export default async function AccountSettingsPage() {
           <ProfilePictureUpload user={user} />
           <ChangePasswordForm />
           <LogoutSection />
+          <DeleteAccountSection userId={user.id} />
         </main>
         <Sidebar />
       </div>
