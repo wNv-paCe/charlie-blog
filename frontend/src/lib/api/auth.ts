@@ -6,7 +6,7 @@ export async function login(
   email: string,
   password: string,
 ): Promise<LoginResponse> {
-  const response = await fetch(`${API_URL}/api/users/token`, {
+  const response = await fetch(`${API_URL}/api/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
