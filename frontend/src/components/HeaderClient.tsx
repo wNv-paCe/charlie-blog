@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import ThemeSelector from "./ThemeSelector";
 import UserActions from "./UserActions";
-import type { UserPrivate } from "@/lib/api";
+import type { UserPrivate } from "@/lib/types/user";
 
 type HeaderClientProps = {
   user: UserPrivate | null;

@@ -1,6 +1,6 @@
 import PostDetail from "@/app/posts/[id]/PostDetail";
 import Sidebar from "@/components/Sidebar";
-import { getPost } from "@/lib/api";
+import { getPost } from "@/lib/api/posts";
 import { getCurrentUser } from "@/lib/auth-server";
 import { notFound } from "next/navigation";
 

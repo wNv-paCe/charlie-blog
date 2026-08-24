@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import InfoModel from "@/components/InfoModal";
-import { createPost, updatePost } from "@/lib/api";
+import { createPost, updatePost } from "@/lib/api/posts";
 
 type PostFormProps = {
   mode: "create" | "edit";
@@ -112,7 +112,7 @@ export function PostForm({
           />
         </div>
 
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error && <p className="text-sm text-danger">{error}</p>}
 
         {/* Submit */}
         <button

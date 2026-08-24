@@ -1,6 +1,6 @@
 import PostList from "@/components/PostList";
 import Sidebar from "@/components/Sidebar";
-import { getPosts } from "@/lib/api";
+import { getPosts } from "@/lib/api/posts";
 
 export default async function Home() {
   const data = await getPosts(0, 10);

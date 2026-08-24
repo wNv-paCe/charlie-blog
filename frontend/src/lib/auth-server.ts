@@ -1,8 +1,7 @@
 import { cookies } from "next/headers";
-import { UserPrivate } from "./api";
+import { UserPrivate } from "./types/user";
 import { redirect } from "next/navigation";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { API_URL } from "./api/client";
 
 export async function getCurrentUser(): Promise<UserPrivate | null> {
   const cookieStore = await cookies();

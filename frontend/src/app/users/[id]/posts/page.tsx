@@ -1,6 +1,7 @@
 import PostList from "@/components/PostList";
 import Sidebar from "@/components/Sidebar";
-import { getUser, getUserPosts } from "@/lib/api";
+import { getUser } from "@/lib/api/users";
+import { getUserPosts } from "@/lib/api/users";
 import { notFound } from "next/navigation";
 
 export default async function UserPostsPage({

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { register } from "@/lib/auth";
+import { register } from "@/lib/api/auth";
 import { useRouter } from "next/navigation";
 import InfoModal from "@/components/InfoModal";
 

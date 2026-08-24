@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { Post } from "@/lib/api";
+import type { Post } from "@/lib/types/post";
 
 export default function PostCard({ post }: { post: Post }) {
   return (
