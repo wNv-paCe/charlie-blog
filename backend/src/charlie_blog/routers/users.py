@@ -100,6 +100,7 @@ async def change_password(
         )
 
     current_user.password_hash = hash_password(password_data.new_password)
+    current_user.token_version += 1
 
     await db.execute(
         sql_delete(models.PasswordResetToken).where(
