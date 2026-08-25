@@ -50,19 +50,19 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
     return encode_jwt
 
 
-def verify_access_token(token: str) -> str | None:
+def verify_access_token(token: str) -> tuple[str, int] | None:
     """Verify a JWT access token and return the subject (user id) if valid"""
     try:
         payload = jwt.decode(
             token,
             settings.secret_key.get_secret_value(),
             algorithms=[settings.algorithm],
-            options={"require": ["exp", "sub"]},
+            options={"require": ["exp", "sub", "token_version"]},
         )
     except jwt.InvalidTokenError:
         return None
     else:
-        return payload.get("sub")
+        return payload["sub"], payload["token_version"]
 
 
 async def get_access_token(
@@ -80,12 +80,14 @@ async def get_current_user(
     token: Annotated[str, Depends(get_access_token)],
     db: Annotated[AsyncSession, Depends(get_db)],
 ) -> models.User:
-    user_id = verify_access_token(token)
-    if user_id is None:
+    token_data = verify_access_token(token)
+    if token_data is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid or expired token",
         )
+
+    user_id, token_version = token_data
 
     try:
         user_id_int = int(user_id)
@@ -103,6 +105,11 @@ async def get_current_user(
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="User not found",
+        )
+
+    if token_version != user.token_version:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired token"
         )
     return user
 

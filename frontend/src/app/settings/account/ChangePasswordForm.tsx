@@ -2,6 +2,7 @@
 
 import InfoModal from "@/components/InfoModal";
 import { changePassword } from "@/lib/api/users";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function ChangePasswordForm() {
@@ -11,6 +12,8 @@ export default function ChangePasswordForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const router = useRouter();
 
   async function handleChangePassword() {
     setError("");
@@ -120,6 +123,8 @@ export default function ChangePasswordForm() {
           message={successMessage}
           onConfirm={() => {
             setSuccessMessage(null);
+            router.push("/login");
+            router.refresh();
           }}
         />
       )}

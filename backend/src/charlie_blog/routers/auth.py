@@ -49,7 +49,7 @@ async def login_for_access_token(
     # Create access token with user id as subject
     access_token_expires = timedelta(minutes=settings.access_token_expire_minutes)
     access_token = create_access_token(
-        data={"sub": str(user.id)},
+        data={"sub": str(user.id), "token_version": user.token_version},
         expires_delta=access_token_expires,
     )
     response.set_cookie(
@@ -157,6 +157,7 @@ async def reset_password(
         )
 
     user.password_hash = hash_password(request_data.new_password)
+    user.token_version += 1
 
     await db.execute(
         sql_delete(models.PasswordResetToken).where(
