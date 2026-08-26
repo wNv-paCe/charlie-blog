@@ -1,6 +1,8 @@
 import SessionExpiredModal from "@/components/SessionExpiredModal";
 import { LoginForm } from "@/app/login/LoginForm";
 import Sidebar from "@/components/Sidebar";
+import { getCurrentUser } from "@/lib/auth-server";
+import { redirect } from "next/navigation";
 
 type LoginPageProps = {
   searchParams: Promise<{
@@ -10,7 +12,13 @@ type LoginPageProps = {
 };
 
 export default async function LoginPage({ searchParams }: LoginPageProps) {
+  const user = await getCurrentUser();
+
   const { reason, next } = await searchParams;
+
+  if (user) {
+    redirect("/");
+  }
 
   return (
     <div className="mx-auto w-full max-w-6xl">
