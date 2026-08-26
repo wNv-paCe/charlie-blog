@@ -20,10 +20,16 @@ export default async function Home({ searchParams }: HomeProps) {
   const data = await getPosts(skip, POSTS_PER_PAGE);
   return (
     <div className="mx-auto w-full max-w-6xl">
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-[1fr_280px] items-start">
-        <div>
+      <div className="grid h-full grid-cols-1 gap-8 md:grid-cols-[1fr_280px] items-start">
+        <div className="flex h-full flex-col">
           <PostList posts={data.posts} />
-          <Pagination currentPage={page} hasMore={data.has_more} />
+          <div className="mt-auto">
+            <Pagination
+              currentPage={page}
+              hasMore={data.has_more}
+              basePath="/"
+            />
+          </div>
         </div>
         <Sidebar />
       </div>

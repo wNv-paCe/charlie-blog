@@ -1,11 +1,16 @@
 import Link from "next/link";
 
-type PaginationPros = {
+type PaginationProps = {
   currentPage: number;
   hasMore: boolean;
+  basePath: string;
 };
 
-export default function Pagination({ currentPage, hasMore }: PaginationPros) {
+export default function Pagination({
+  currentPage,
+  hasMore,
+  basePath,
+}: PaginationProps) {
   const hasPrevious = currentPage > 1;
 
   //   if (!hasPrevious && !hasMore) {
@@ -16,7 +21,9 @@ export default function Pagination({ currentPage, hasMore }: PaginationPros) {
     <nav className="mt-8 flex items-center justify-center gap-4">
       {hasPrevious ? (
         <Link
-          href={currentPage === 2 ? "/" : `/?page=${currentPage - 1}`}
+          href={
+            currentPage === 2 ? basePath : `${basePath}?page=${currentPage - 1}`
+          }
           className="rounded-md px-4 py-2 font-medium transition-opacity hover:opacity-80"
         >
           Previous
@@ -31,7 +38,7 @@ export default function Pagination({ currentPage, hasMore }: PaginationPros) {
 
       {hasMore ? (
         <Link
-          href={`/?page=${currentPage + 1}`}
+          href={`${basePath}?page=${currentPage + 1}`}
           className="rounded-md px-4 py-2 font-medium transition-opacity hover:opacity-80"
         >
           Next

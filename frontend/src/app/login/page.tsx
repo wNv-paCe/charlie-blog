@@ -14,7 +14,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
 
   return (
     <div className="mx-auto w-full max-w-6xl">
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-[1fr_280px] items-start">
+      <div className="grid h-full grid-cols-1 gap-8 md:grid-cols-[1fr_280px] items-start">
         <LoginForm next={next} />
         <SessionExpiredModal show={reason === "session-expired"} next={next} />
         <Sidebar />
