@@ -4,7 +4,7 @@ import type { Post } from "@/lib/types/post";
 
 export default function PostCard({ post }: { post: Post }) {
   return (
-    <article className="rounded-lg border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-muted/10 hover:shadow-md">
+    <article className="max-w-2xl rounded-lg border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-muted/10 hover:shadow-md">
       <div className="flex gap-4">
         {/* Avatar */}
         <div className="shrink-0">
@@ -44,7 +44,7 @@ export default function PostCard({ post }: { post: Post }) {
           </Link>
 
           {/* Content */}
-          <p className="mt-2 text-card-foreground">
+          <p className="mt-2 text-card-foreground wrap-break-word">
             {post.content.slice(0, 150)}
             {post.content.length > 150 && "..."}
           </p>
