@@ -13,9 +13,9 @@ export default function Pagination({
 }: PaginationProps) {
   const hasPrevious = currentPage > 1;
 
-  //   if (!hasPrevious && !hasMore) {
-  //     return null;
-  //   }
+  if (!hasPrevious && !hasMore) {
+    return null;
+  }
 
   return (
     <nav className="mt-8 flex items-center justify-center gap-4">
