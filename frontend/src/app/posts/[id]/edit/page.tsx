@@ -25,7 +25,7 @@ export default async function EditPostPage({
 
   return (
     <div className="mx-auto w-full max-w-6xl">
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-[1fr_280px] items-start">
+      <div className="grid h-full grid-cols-1 gap-8 md:grid-cols-[1fr_280px] items-start">
         <PostForm
           mode="edit"
           postId={post.id}

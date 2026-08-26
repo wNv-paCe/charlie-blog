@@ -32,7 +32,7 @@ export default function ForgotPasswordForm() {
 
   return (
     <>
-      <section className="rounded-lg border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-muted/10 hover:shadow-md">
+      <section className="max-w-2xl rounded-lg border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-muted/10 hover:shadow-md">
         <h1 className="mb-6 text-xl font-bold">Forgot Password</h1>
 
         <div className="space-y-5">

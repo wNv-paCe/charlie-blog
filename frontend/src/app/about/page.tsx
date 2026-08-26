@@ -1,6 +1,6 @@
 export default function AboutPage() {
   return (
-    <div className="mx-auto w-full max-w-6xl">
+    <div className="mx-auto max-w-6xl">
       <h1 className="text-3xl text-foreground font-bold">About Me</h1>
 
       <section className="mt-8 space-y-6 p-4">
