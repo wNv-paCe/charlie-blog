@@ -73,3 +73,27 @@ class ResetPasswordRequest(BaseModel):
 class ChangePasswordRequest(BaseModel):
     current_password: str
     new_password: str = Field(min_length=8)
+
+
+class CommentBase(BaseModel):
+    content: str = Field(min_length=1)
+
+
+class CommentCreate(CommentBase):
+    pass
+
+
+class CommentAuthor(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    username: str
+    image_path: str | None
+
+
+class CommentResponse(CommentBase):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    created_at: datetime
+    user: CommentAuthor | None
