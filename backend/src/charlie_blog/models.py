@@ -95,6 +95,11 @@ class Comment(Base):
         DateTime(timezone=True),
         default=lambda: datetime.now(UTC),
     )
+    deleted_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True,
+        default=None,
+    )
     user_id: Mapped[int | None] = mapped_column(
         ForeignKey("users.id", ondelete="SET NULL"),
         nullable=True,
@@ -103,6 +108,11 @@ class Comment(Base):
     post_id: Mapped[int] = mapped_column(
         ForeignKey("posts.id"),
         nullable=False,
+        index=True,
+    )
+    parent_id: Mapped[int | None] = mapped_column(
+        ForeignKey("comments.id", ondelete="SET NULL"),
+        nullable=True,
         index=True,
     )
 

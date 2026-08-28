@@ -97,3 +97,7 @@ class CommentResponse(CommentBase):
     id: int
     created_at: datetime
     user: CommentAuthor | None
+
+
+class CommentUpdate(BaseModel):
+    content: str | None = Field(default=None, min_length=1)
