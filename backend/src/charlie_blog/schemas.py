@@ -80,7 +80,7 @@ class CommentBase(BaseModel):
 
 
 class CommentCreate(CommentBase):
-    pass
+    parent_id: int | None = None
 
 
 class CommentAuthor(BaseModel):
@@ -96,6 +96,8 @@ class CommentResponse(CommentBase):
 
     id: int
     created_at: datetime
+    deleted_at: datetime | None
+    parent_id: int | None
     user: CommentAuthor | None
 
 
