@@ -1,7 +1,7 @@
 import SessionExpiredModal from "@/components/SessionExpiredModal";
 import { LoginForm } from "@/app/login/LoginForm";
 import Sidebar from "@/components/Sidebar";
-import { getCurrentUser } from "@/lib/auth-server";
+import { getCurrentUser, getSafeNext } from "@/lib/auth-server";
 import { redirect } from "next/navigation";
 
 type LoginPageProps = {
@@ -16,6 +16,8 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
 
   const { reason, next } = await searchParams;
 
+  const safeNext = getSafeNext(next);
+
   if (user) {
     redirect("/");
   }
@@ -23,8 +25,11 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   return (
     <div className="mx-auto w-full max-w-6xl">
       <div className="grid h-full grid-cols-1 gap-8 md:grid-cols-[1fr_280px] items-start">
-        <LoginForm next={next} />
-        <SessionExpiredModal show={reason === "session-expired"} next={next} />
+        <LoginForm next={safeNext} />
+        <SessionExpiredModal
+          show={reason === "session-expired"}
+          next={safeNext}
+        />
         <Sidebar />
       </div>
     </div>

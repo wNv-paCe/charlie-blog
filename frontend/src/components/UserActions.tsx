@@ -4,14 +4,19 @@ import { UserPrivate } from "@/lib/types/user";
 type UserActionsProps = {
   user: UserPrivate | null;
   onNavigate?: () => void;
+  currentPath: string;
 };
 
-export default function UserActions({ user, onNavigate }: UserActionsProps) {
+export default function UserActions({
+  user,
+  onNavigate,
+  currentPath,
+}: UserActionsProps) {
   if (!user) {
     return (
       <div className="flex items-center gap-2">
         <Link
-          href="/login"
+          href={`/login?next=${encodeURIComponent(currentPath)}`}
           onClick={onNavigate}
           className="rounded-md border border-white px-3 py-2 hover:bg-white hover:text-black"
         >
@@ -19,7 +24,7 @@ export default function UserActions({ user, onNavigate }: UserActionsProps) {
         </Link>
 
         <Link
-          href="/register"
+          href={`/register?next=${encodeURIComponent(currentPath)}`}
           onClick={onNavigate}
           className="rounded-md bg-white px-3 py-2 text-black hover:bg-white/85"
         >

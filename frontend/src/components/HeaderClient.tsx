@@ -5,6 +5,7 @@ import { useState } from "react";
 import ThemeSelector from "./ThemeSelector";
 import UserActions from "./UserActions";
 import type { UserPrivate } from "@/lib/types/user";
+import { usePathname, useSearchParams } from "next/navigation";
 
 type HeaderClientProps = {
   user: UserPrivate | null;
@@ -12,6 +13,13 @@ type HeaderClientProps = {
 
 export default function HeaderClient({ user }: HeaderClientProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const query = searchParams.toString();
+
+  const currentPath = query ? `${pathname}?${query}` : pathname;
 
   return (
     <header className="bg-primary">
@@ -30,7 +38,7 @@ export default function HeaderClient({ user }: HeaderClientProps) {
 
           {/* Desktop user actions */}
           <div className="text-primary-foreground ml-auto hidden items-center gap-4 md:flex">
-            <UserActions user={user} />
+            <UserActions user={user} currentPath={currentPath} />
             <ThemeSelector />
           </div>
 
@@ -56,7 +64,11 @@ export default function HeaderClient({ user }: HeaderClientProps) {
                 About
               </Link>
 
-              <UserActions user={user} onNavigate={() => setIsOpen(false)} />
+              <UserActions
+                user={user}
+                onNavigate={() => setIsOpen(false)}
+                currentPath={currentPath}
+              />
 
               <ThemeSelector mobile />
             </nav>
