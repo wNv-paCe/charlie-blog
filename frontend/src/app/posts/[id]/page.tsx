@@ -40,7 +40,11 @@ export default async function PostPage({
                 <CommentForm postId={post.id} />
               </div>
             )}
-            <CommentList comments={comments} postAuthorId={post.author.id} />
+            <CommentList
+              comments={comments}
+              postAuthorId={post.author.id}
+              currentUser={currentUser}
+            />
           </section>
         </div>
 

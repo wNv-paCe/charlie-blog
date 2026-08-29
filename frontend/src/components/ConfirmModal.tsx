@@ -11,6 +11,7 @@ type ConfirmModalProps = {
   confirmText?: string;
   cancelText?: string;
   icon?: LucideIcon;
+  isLoading?: boolean;
 };
 
 export default function ConfirmModal({
@@ -21,6 +22,7 @@ export default function ConfirmModal({
   confirmText = "Confirm",
   cancelText = "Cancel",
   icon: Icon = AlertTriangle,
+  isLoading = false,
 }: ConfirmModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
@@ -36,6 +38,7 @@ export default function ConfirmModal({
             <button
               type="button"
               onClick={onCancel}
+              disabled={isLoading}
               className="cursor-pointer rounded-md border border-border px-5 py-2 font-medium hover:bg-muted"
             >
               {cancelText}
@@ -43,9 +46,10 @@ export default function ConfirmModal({
             <button
               type="button"
               onClick={onConfirm}
+              disabled={isLoading}
               className="cursor-pointer rounded-md bg-danger px-5 py-2 font-medium text-white transition-opacity hover:opacity-90"
             >
-              {confirmText}
+              {isLoading ? "Loading..." : confirmText}
             </button>
           </div>
         </div>

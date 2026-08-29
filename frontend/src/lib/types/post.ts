@@ -27,5 +27,16 @@ export type Comment = {
   id: number;
   content: string;
   created_at: string;
+  deleted_at: string | null;
+  parent_id: number | null;
   user: CommentAuthor | null;
+};
+
+export type CommentCreate = {
+  content: string;
+  parent_id?: number | null;
+};
+
+export type CommentUpdate = {
+  content: string;
 };

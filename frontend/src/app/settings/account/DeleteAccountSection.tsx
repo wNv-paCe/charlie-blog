@@ -74,9 +74,11 @@ export default function DeleteAccountSection({
           title="Delete Account?"
           message="This action is permanent. All your posts and profile data will be deleted."
           confirmText="Delete Account"
+          cancelText="Cancel"
           icon={AlertTriangle}
           onConfirm={handleDeleteAccount}
           onCancel={() => setShowConfirm(false)}
+          isLoading={isLoading}
         />
       )}
     </>

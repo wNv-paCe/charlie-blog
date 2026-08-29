@@ -65,14 +65,11 @@ export default function PostActions({ postId, userId }: PostActionsProps) {
         <ConfirmModal
           title="Delete Post?"
           message="Are you sure you want to delete this post? This action cannot be undone."
-          confirmText={isDeleting ? "Deleting..." : "Delete"}
+          confirmText="Delete"
           cancelText="Cancel"
           onConfirm={handleDelete}
-          onCancel={() => {
-            if (!isDeleting) {
-              setShowConfirmModal(false);
-            }
-          }}
+          onCancel={() => setShowConfirmModal(false)}
+          isLoading={isDeleting}
         />
       )}
 

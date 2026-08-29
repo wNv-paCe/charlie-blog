@@ -16,6 +16,8 @@
   --primary: #527c9f;
   --primary-foreground: #ffffff;
 
+  --hover: #D1D5DB;
+
   --danger: #B91C1C;
 
   --link: #428bca;
@@ -34,6 +36,8 @@
 
   --border: #404040;
 
+  --hover: #252525;
+
   --link: #8aadc8;
 }
 
@@ -50,6 +54,8 @@
     --muted: #a1a1aa;
 
     --border: #404040;
+
+    --hover: #252525;
 
     --link: #8aadc8;
   }
@@ -70,6 +76,8 @@
 
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+
+  --color-hover: var(--hover);
 
   --color-danger: var(--danger);
 

@@ -6,9 +6,13 @@ import { useRouter } from "next/navigation";
 
 type CommentFormProps = {
   postId: number;
+  parentId?: number | null;
 };
 
-export default function CommentForm({ postId }: CommentFormProps) {
+export default function CommentForm({
+  postId,
+  parentId = null,
+}: CommentFormProps) {
   const [content, setContent] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -26,7 +30,10 @@ export default function CommentForm({ postId }: CommentFormProps) {
     setError(null);
 
     try {
-      await createComment(postId, content.trim());
+      await createComment(postId, {
+        content: content.trim(),
+        parent_id: parentId,
+      });
       setContent("");
       router.refresh();
     } catch (error) {
@@ -42,11 +49,10 @@ export default function CommentForm({ postId }: CommentFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="mb-4 flex flex-col gap-3">
-      <textarea
+      <input
         value={content}
         onChange={(event) => setContent(event.target.value)}
-        placeholder="Write a comment..."
-        rows={1}
+        placeholder={parentId ? "Write a replay..." : "Write a comment..."}
         className="w-full text-sm resize-y border-b border-border p-1 outline-none focus:border-b focus:border-foreground"
         disabled={isSubmitting}
       />
@@ -58,7 +64,7 @@ export default function CommentForm({ postId }: CommentFormProps) {
         disabled={isSubmitting || !content.trim()}
         className="cursor-pointer self-end rounded-md border border-border px-3 py-2 text-sm bg-primary text-primary-foreground font-medium transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {isSubmitting ? "Comment..." : "Comment"}
+        {isSubmitting ? "Posting..." : parentId ? "Reply" : "Comment"}
       </button>
     </form>
   );
