@@ -43,7 +43,7 @@ async def get_comments(
     return [
         CommentResponse(
             id=comment.id,
-            content="[Deleted comment]" if comment.deleted_at else comment.content,
+            content="Comment deleted" if comment.deleted_at else comment.content,
             created_at=comment.created_at,
             deleted_at=comment.deleted_at,
             parent_id=comment.parent_id,

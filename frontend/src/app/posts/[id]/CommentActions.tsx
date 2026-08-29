@@ -8,9 +8,13 @@ import ConfirmModal from "@/components/ConfirmModal";
 
 type CommentActionsProps = {
   comment: Comment;
+  onEdit: () => void;
 };
 
-export default function CommentActions({ comment }: CommentActionsProps) {
+export default function CommentActions({
+  comment,
+  onEdit,
+}: CommentActionsProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -60,6 +64,7 @@ export default function CommentActions({ comment }: CommentActionsProps) {
           <div className="absolute right-0 z-10 mt-1 w-24 rounded-md border border-border bg-card p-1 shadow-md">
             <button
               type="button"
+              onClick={onEdit}
               className="w-full cursor-pointer rounded px-2 py-1.5 text-left text-sm hover:bg-hover"
             >
               Edit
