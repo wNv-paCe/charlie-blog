@@ -6,7 +6,11 @@ import { useRouter } from "next/navigation";
 import InfoModal from "@/components/InfoModal";
 import Link from "next/link";
 
-export function RegisterForm() {
+type RegisterFormProps = {
+  next?: string;
+};
+
+export function RegisterForm({ next }: RegisterFormProps) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -125,7 +129,7 @@ export function RegisterForm() {
           />
         </div>
 
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error && <p className="text-sm text-danger">{error}</p>}
 
         {/* Submit */}
         <button
@@ -138,7 +142,10 @@ export function RegisterForm() {
 
         <p className="text-sm text-muted">
           Already have an account?{" "}
-          <Link href="/login" className="text-primary hover:underline">
+          <Link
+            href={next ? `/login?next=${encodeURIComponent(next)}` : "/login"}
+            className="text-primary hover:underline"
+          >
             Login
           </Link>
         </p>
@@ -150,7 +157,9 @@ export function RegisterForm() {
           message={successMessage}
           onConfirm={() => {
             setSuccessMessage(null);
-            router.push("/login");
+            router.push(
+              next ? `/login?next=${encodeURIComponent(next)}` : "/login",
+            );
             router.refresh();
           }}
         />

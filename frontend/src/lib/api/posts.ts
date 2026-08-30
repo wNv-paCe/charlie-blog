@@ -88,6 +88,10 @@ export async function updatePost(
     throw new Error("Post not found");
   }
 
+  if (response.status === 400) {
+    throw new Error("Cannot update a deleted comment");
+  }
+
   if (!response.ok) {
     throw await getApiError(response);
   }

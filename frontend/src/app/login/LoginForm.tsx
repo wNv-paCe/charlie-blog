@@ -105,7 +105,12 @@ export function LoginForm({ next }: LoginFormProps) {
 
         <p className="text-sm text-muted">
           Don&apos;t have an account?{" "}
-          <Link href="/register" className="text-primary hover:underline">
+          <Link
+            href={
+              next ? `/register?next=${encodeURIComponent(next)}` : "/register"
+            }
+            className="text-primary hover:underline"
+          >
             Register here
           </Link>
         </p>

@@ -42,3 +42,15 @@ export async function requireCurrentUser(next?: string): Promise<UserPrivate> {
 
   return user;
 }
+
+export function getSafeNext(next?: string) {
+  if (!next) {
+    return "/";
+  }
+
+  if (next.startsWith("/") && !next.startsWith("//")) {
+    return next;
+  }
+
+  return "/";
+}

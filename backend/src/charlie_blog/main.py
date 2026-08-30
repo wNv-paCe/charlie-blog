@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from charlie_blog.database import engine
-from charlie_blog.routers import auth, posts, users
+from charlie_blog.routers import auth, comments, posts, users
 
 
 @asynccontextmanager
@@ -19,6 +19,7 @@ app = FastAPI(lifespan=lifespan)
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(users.router, prefix="/api/users", tags=["users"])
 app.include_router(posts.router, prefix="/api/posts", tags=["posts"])
+app.include_router(comments.router, prefix="/api", tags=["comments"])
 
 app.add_middleware(
     CORSMiddleware,
