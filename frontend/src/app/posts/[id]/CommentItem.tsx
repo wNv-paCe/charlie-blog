@@ -2,18 +2,25 @@ import { Comment } from "@/lib/types/post";
 import { UserPublic } from "@/lib/types/user";
 import Image from "next/image";
 import CommentBody from "./CommentBody";
+import CommentReplies from "./CommentReplies";
 
 type CommentItemProps = {
+  postId: number;
   comment: Comment;
+  comments: Comment[];
   postAuthorId: number;
   currentUser: UserPublic | null;
 };
 
 export default function CommentItem({
+  postId,
   comment,
+  comments,
   postAuthorId,
   currentUser,
 }: CommentItemProps) {
+  const replies = comments.filter((item) => item.parent_id === comment.id);
+
   return (
     <article key={comment.id} className="flex gap-3">
       {/* Avatar */}
@@ -27,11 +34,22 @@ export default function CommentItem({
         />
       </div>
 
-      <CommentBody
-        comment={comment}
-        postAuthorId={postAuthorId}
-        currentUser={currentUser}
-      />
+      <div className="min-w-0 flex-1">
+        <CommentBody
+          postId={postId}
+          comment={comment}
+          postAuthorId={postAuthorId}
+          currentUser={currentUser}
+        />
+
+        <CommentReplies
+          replies={replies}
+          postId={postId}
+          comments={comments}
+          postAuthorId={postAuthorId}
+          currentUser={currentUser}
+        />
+      </div>
     </article>
   );
 }

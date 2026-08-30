@@ -42,6 +42,7 @@ export default async function PostPage({
             )}
             <CommentList
               comments={comments}
+              postId={post.id}
               postAuthorId={post.author.id}
               currentUser={currentUser}
             />

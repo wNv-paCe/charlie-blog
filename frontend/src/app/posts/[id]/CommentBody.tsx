@@ -6,19 +6,23 @@ import Link from "next/link";
 import CommentActions from "./CommentActions";
 import { useState } from "react";
 import CommentEditForm from "./CommentEditForm";
+import CommentForm from "./CommentForm";
 
 type CommentBodyProps = {
   comment: Comment;
+  postId: number;
   postAuthorId: number;
   currentUser: UserPublic | null;
 };
 
 export default function CommentBody({
   comment,
+  postId,
   postAuthorId,
   currentUser,
 }: CommentBodyProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const [isReplying, setIsReplying] = useState(false);
 
   const isAuthor = comment.user?.id === postAuthorId;
   const isOwner = currentUser?.id === comment.user?.id;
@@ -40,7 +44,11 @@ export default function CommentBody({
               <span className="font-semibold text-muted">Deleted user</span>
             )}
 
-            {isAuthor && <span className="text-xs text-muted">Author</span>}
+            {isAuthor && (
+              <span className="rounded bg-blue-500/10 px-1.5 py-0.5 text-xs text-blue-500">
+                Author
+              </span>
+            )}
 
             <span className="text-muted">·</span>
 
@@ -59,12 +67,34 @@ export default function CommentBody({
           <p
             className={
               isDeleted
-                ? "mt-1 wrap-break-word text-muted italic"
+                ? "mt-1 wrap-break-word text-sm text-muted italic"
                 : "mt-1 wrap-break-word text-card-foreground"
             }
           >
             {comment.content}
           </p>
+
+          {currentUser && !isDeleted && (
+            <>
+              <button
+                type="button"
+                onClick={() => setIsReplying((prev) => !prev)}
+                className="mt-2 cursor-pointer text-xs text-muted hover:text-foreground"
+              >
+                Reply
+              </button>
+
+              {isReplying && (
+                <div className="mt-3">
+                  <CommentForm
+                    postId={postId}
+                    parentId={comment.id}
+                    onCancel={() => setIsReplying(false)}
+                  />
+                </div>
+              )}
+            </>
+          )}
         </>
       )}
       {isEditing && (

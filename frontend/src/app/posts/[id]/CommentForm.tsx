@@ -7,11 +7,13 @@ import { useRouter } from "next/navigation";
 type CommentFormProps = {
   postId: number;
   parentId?: number | null;
+  onCancel?: () => void;
 };
 
 export default function CommentForm({
   postId,
   parentId = null,
+  onCancel,
 }: CommentFormProps) {
   const [content, setContent] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -35,6 +37,7 @@ export default function CommentForm({
         parent_id: parentId,
       });
       setContent("");
+      onCancel?.();
       router.refresh();
     } catch (error) {
       if (error instanceof Error) {
@@ -59,13 +62,25 @@ export default function CommentForm({
 
       {error && <p className="text-sm text-danger">{error}</p>}
 
-      <button
-        type="submit"
-        disabled={isSubmitting || !content.trim()}
-        className="cursor-pointer self-end rounded-md border border-border px-3 py-2 text-sm bg-primary text-primary-foreground font-medium transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50"
-      >
-        {isSubmitting ? "Posting..." : parentId ? "Reply" : "Comment"}
-      </button>
+      <div className="flex justify-end gap-2">
+        {parentId !== null && (
+          <button
+            type="button"
+            onClick={onCancel}
+            disabled={isSubmitting}
+            className="cursor-pointer rounded-md px-3 py-2 text-sm font-medium hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Cancel
+          </button>
+        )}
+        <button
+          type="submit"
+          disabled={isSubmitting || !content.trim()}
+          className="cursor-pointer rounded-md border border-border px-3 py-2 text-sm bg-primary text-primary-foreground font-medium transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {isSubmitting ? "Posting..." : parentId ? "Reply" : "Comment"}
+        </button>
+      </div>
     </form>
   );
 }

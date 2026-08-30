@@ -10,7 +10,7 @@ type PostDetailProps = {
 
 export default function PostDetail({ post, isOwner }: PostDetailProps) {
   return (
-    <article className="max-w-2xl rounded-lg border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-muted/10 hover:shadow-md">
+    <article className="max-w-4xl rounded-lg border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-muted/10 hover:shadow-md">
       <div className="flex gap-4">
         {/* Avatar */}
         <div className="shrink-0">
