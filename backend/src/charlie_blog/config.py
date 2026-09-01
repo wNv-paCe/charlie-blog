@@ -37,5 +37,7 @@ class Settings(BaseSettings):
 
     frontend_url: str = "http://localhost:8000"
 
+    cookie_secure: bool = False
+
 
 settings = Settings()  # type: ignore
