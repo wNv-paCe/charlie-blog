@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from charlie_blog.config import settings
 from charlie_blog.database import engine
 from charlie_blog.routers import auth, comments, posts, users
 
@@ -23,7 +24,7 @@ app.include_router(comments.router, prefix="/api", tags=["comments"])
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[settings.frontend_url],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

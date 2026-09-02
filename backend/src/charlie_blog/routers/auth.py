@@ -56,7 +56,7 @@ async def login_for_access_token(
         key="access_token",
         value=access_token,
         httponly=True,
-        secure=False,
+        secure=settings.cookie_secure,
         samesite="lax",
     )
     return {"message": "Login successful"}
