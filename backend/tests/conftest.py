@@ -157,3 +157,24 @@ async def request_password_reset(
 
         call_kwargs = mock_send.call_args.kwargs
         return call_kwargs["token"]
+
+
+async def log_out(client: AsyncClient):
+    response = await client.post("/api/auth/logout")
+    assert response.status_code == 200
+
+
+async def create_test_post(
+    client: AsyncClient,
+    title: str = "Test Title",
+    content: str = "Test content",
+) -> dict:
+    response = await client.post(
+        "/api/posts",
+        json={
+            "title": title,
+            "content": content,
+        },
+    )
+    assert response.status_code == 201, f"Failed to create post: {response.text}"
+    return response.json()

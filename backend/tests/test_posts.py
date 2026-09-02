@@ -1,7 +1,7 @@
 import pytest
 from httpx import AsyncClient
 
-from tests.conftest import create_test_user, login_user
+from tests.conftest import create_test_post, create_test_user, login_user
 
 
 @pytest.mark.anyio
@@ -65,14 +65,8 @@ async def test_update_post_success(client: AsyncClient):
     await create_test_user(client)
     await login_user(client)
 
-    response = await client.post(
-        "/api/posts",
-        json={
-            "title": "Original Title",
-            "content": "Original content",
-        },
-    )
-    post_id = response.json()["id"]
+    post_response = await create_test_post(client)
+    post_id = post_response["id"]
 
     response = await client.patch(
         f"/api/posts/{post_id}",
@@ -82,7 +76,7 @@ async def test_update_post_success(client: AsyncClient):
     assert response.status_code == 200
     data = response.json()
     assert data["title"] == "Updated Title"
-    assert data["content"] == "Original content"
+    assert data["content"] == "Test content"
 
 
 @pytest.mark.anyio
@@ -90,11 +84,8 @@ async def test_update_post_wrong_user(client: AsyncClient):
     await create_test_user(client)
     await login_user(client)
 
-    response = await client.post(
-        "/api/posts",
-        json={"title": "User 1's Post", "content": "Only user 1 can edit this"},
-    )
-    post_id = response.json()["id"]
+    post_response = await create_test_post(client)
+    post_id = post_response["id"]
 
     await create_test_user(client, username="user2", email="user2@example.com")
     await login_user(client, email="user2@example.com")
@@ -152,15 +143,8 @@ async def test_delete_post(client: AsyncClient):
     await create_test_user(client)
     await login_user(client)
 
-    response = await client.post(
-        "/api/posts",
-        json={
-            "title": "Deleted Title",
-            "content": "Deleted content",
-        },
-    )
-    assert response.status_code == 201
-    post_id = response.json()["id"]
+    post_response = await create_test_post(client)
+    post_id = post_response["id"]
 
     response = await client.delete(f"/api/posts/{post_id}")
     assert response.status_code == 204
