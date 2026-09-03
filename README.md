@@ -1,2 +1,17 @@
 # charlie-blog
-My personal blog - Next.js &amp; FastAPI - Cloudflare R2 &amp; NeonDB
+My personal blog
+
+## Frontend
+Next.js
+
+## Backend
+Python, FastAPI
+
+## Database
+NeonDB - PostgreSQL
+
+## Email Server
+Resend
+
+## Images Storage
+Cloudflare R2
