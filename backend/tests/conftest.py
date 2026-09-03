@@ -11,6 +11,7 @@ os.environ["S3_ACCESS_KEY_ID"] = "testing"
 os.environ["S3_SECRET_ACCESS_KEY"] = "testing"
 os.environ["S3_REGION"] = "us-east-1"
 os.environ["S3_ENDPOINT_URL"] = ""
+os.environ["S3_PUBLIC_URL"] = "https://test"
 
 os.environ["AWS_ACCESS_KEY_ID"] = "testing"
 os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
