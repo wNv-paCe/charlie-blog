@@ -8,14 +8,20 @@ class Settings(BaseSettings):
         env_file_encoding="utf-8",
     )
 
+    # Database
     database_url: str
+    database_direct_url: str | None = None
 
+    # Security
     secret_key: SecretStr
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
-
-    posts_per_page: int = 10
     reset_token_expire_minutes: int = 60
+    cookie_secure: bool = False
+
+    # App
+    posts_per_page: int = 10
+    frontend_url: str = "http://localhost:3000"
 
     # S3 Configuration
     s3_bucket_name: str
@@ -24,7 +30,6 @@ class Settings(BaseSettings):
     s3_secret_access_key: SecretStr | None = None
     s3_endpoint_url: str | None = None
     s3_public_url: str
-
     max_upload_size_bytes: int = 5 * 1024 * 1024
 
     # Email
@@ -34,10 +39,6 @@ class Settings(BaseSettings):
     mail_password: SecretStr = SecretStr("")
     mail_from: str = "noreply@example.com"
     mail_use_tls: bool = True
-
-    frontend_url: str = "http://localhost:8000"
-
-    cookie_secure: bool = False
 
 
 settings = Settings()  # type: ignore
