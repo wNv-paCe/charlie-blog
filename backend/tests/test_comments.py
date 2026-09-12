@@ -46,7 +46,7 @@ async def test_create_comment_unauthorized(client: AsyncClient):
     )
 
     assert response.status_code == 401
-    assert response.json()["detail"] == "Invalid or expired token"
+    assert response.json()["detail"] == "Access token cookie missing"
 
 
 @pytest.mark.anyio
