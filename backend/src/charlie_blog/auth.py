@@ -59,7 +59,17 @@ def verify_access_token(token: str) -> tuple[str, int] | None:
             algorithms=[settings.algorithm],
             options={"require": ["exp", "sub", "token_version"]},
         )
-    except jwt.InvalidTokenError:
+    except jwt.ExpiredSignatureError:
+        print("JWT error: token expired")
+        return None
+    except jwt.MissingRequiredClaimError as error:
+        print("JWT error: missing claim:", error)
+        return None
+    except jwt.InvalidSignatureError:
+        print("JWT error: invalid signature")
+        return None
+    except jwt.InvalidTokenError as error:
+        print("JWT error:", repr(error))
         return None
     else:
         return payload["sub"], payload["token_version"]
