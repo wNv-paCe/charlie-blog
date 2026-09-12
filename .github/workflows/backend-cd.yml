@@ -41,3 +41,32 @@ jobs:
           tags: |
             ghcr.io/wnv-pace/charlie-blog-backend:latest
             ghcr.io/wnv-pace/charlie-blog-backend:${{ github.sha }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            docker pull ghcr.io/wnv-pace/charlie-blog-backend:latest
+
+            docker run --rm \
+              --env-file /opt/charlie-blog/backend.env \
+              ghcr.io/wnv-pace/charlie-blog-backend:latest \
+              alembic upgrade head
+
+            docker stop charlie-blog-backend || true
+            docker rm charlie-blog-backend || true
+
+            docker run -d \
+              --name charlie-blog-backend \
+              --restart unless-stopped \
+              --env-file /opt/charlie-blog/backend.env \
+              -p 127.0.0.1:8080:8080 \
+              ghcr.io/wnv-pace/charlie-blog-backend:latest
