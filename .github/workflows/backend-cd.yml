@@ -74,3 +74,5 @@ jobs:
               --env-file /opt/charlie-blog/backend.env \
               -p 127.0.0.1:8080:8080 \
               ghcr.io/wnv-pace/charlie-blog-backend:latest
+
+            docker image prune -f
