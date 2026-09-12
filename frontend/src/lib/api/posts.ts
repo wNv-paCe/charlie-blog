@@ -6,22 +6,15 @@ export async function getPosts(
   skip: number,
   limit: number,
 ): Promise<PaginatedPostsResponse> {
-  const url = `${API_URL}/api/posts?skip=${skip}&limit=${limit}`;
-  const response = await fetch(url, {
-    cache: "no-store",
-  });
+  const response = await fetch(
+    `${API_URL}/api/posts?skip=${skip}&limit=${limit}`,
+    {
+      cache: "no-store",
+    },
+  );
 
   if (!response.ok) {
-    const body = await response.text();
-
-    console.error("getPosts failed", {
-      url,
-      status: response.status,
-      statusText: response.statusText,
-      body,
-    });
-
-    throw new Error(`Failed to fetch posts: ${response.status}`);
+    throw await getApiError(response);
   }
 
   return response.json();
