@@ -71,7 +71,7 @@ async def get_access_token(
     if access_token is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid or expired token",
+            detail="Access token cookie missing",
         )
     return access_token
 
@@ -84,7 +84,7 @@ async def get_current_user(
     if token_data is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid or expired token",
+            detail="Access token verification failed",
         )
 
     user_id, token_version = token_data
