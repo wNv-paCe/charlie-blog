@@ -54,7 +54,6 @@ async def login_for_access_token(
     )
     response.delete_cookie(
         key="access_token",
-        path="/",
     )
 
     response.set_cookie(
