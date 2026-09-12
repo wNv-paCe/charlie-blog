@@ -58,6 +58,7 @@ async def login_for_access_token(
         httponly=True,
         secure=settings.cookie_secure,
         samesite="lax",
+        domain=settings.cookie_domain,
     )
     return {"message": "Login successful"}
 
@@ -66,6 +67,7 @@ async def login_for_access_token(
 async def logout(response: Response):
     response.delete_cookie(
         key="access_token",
+        domain=settings.cookie_domain,
     )
 
     return {"message": "Logged out successfully"}

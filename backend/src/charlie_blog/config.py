@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = 30
     reset_token_expire_minutes: int = 60
     cookie_secure: bool = False
+    cookie_domain: str | None = None
 
     # App
     posts_per_page: int = 10
