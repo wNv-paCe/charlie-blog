@@ -43,12 +43,16 @@ export default function PostDetail({ post, isOwner }: PostDetailProps) {
           <div className="mb-3 border-t border-border" />
 
           {/* Title + Actions */}
-          <div className="flex items-start justify-between gap-4 mb-4">
+          <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
             <h2 className="min-w-0 text-xl font-semibold text-card-foreground">
               {post.title}
             </h2>
 
-            {isOwner && <PostActions postId={post.id} userId={post.user_id} />}
+            {isOwner && (
+              <div className="self-end sm:self-auto">
+                <PostActions postId={post.id} userId={post.user_id} />
+              </div>
+            )}
           </div>
 
           {/* Content */}
