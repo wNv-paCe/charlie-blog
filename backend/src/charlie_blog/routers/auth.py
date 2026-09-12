@@ -52,6 +52,11 @@ async def login_for_access_token(
         data={"sub": str(user.id), "token_version": user.token_version},
         expires_delta=access_token_expires,
     )
+    response.delete_cookie(
+        key="access_token",
+        path="/",
+    )
+
     response.set_cookie(
         key="access_token",
         value=access_token,
@@ -65,6 +70,10 @@ async def login_for_access_token(
 
 @router.post("/logout")
 async def logout(response: Response):
+    response.delete_cookie(
+        key="access_token",
+    )
+
     response.delete_cookie(
         key="access_token",
         domain=settings.cookie_domain,
